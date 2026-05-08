@@ -26,7 +26,7 @@ export const Livrables = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-px bg-border border border-border">
           {items.map(({ icon: Icon, title, desc }, i) => (
-            <article key={title} className="bg-background p-8 hover:bg-secondary/40 transition-smooth">
+            <article key={title} className="bg-background p-8 transition-smooth">
               <div className="flex items-center justify-between">
                 <Icon className="h-6 w-6 text-accent" strokeWidth={1.5} />
                 <span className="text-muted-foreground text-xs">0{i + 1}</span>

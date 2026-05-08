@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { NavHashLink } from "react-router-hash-link";
 
@@ -8,19 +9,37 @@ const links = [
   { label: "Contact", href: "/#contact" },
 ];
 
+const MenuIcon = ({ open }: { open: boolean }) => (
+  <svg viewBox="0 0 24 24" className="w-6 h-6 stroke-primary fill-none stroke-[1.5]">
+    {open ? (
+      <>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </>
+    ) : (
+      <>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 9h16.5" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 15h10.5" />
+      </>
+    )}
+  </svg>
+);
+
 export const Navbar = () => {
+  const [open, setOpen] = useState(false);
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
       <div className="container flex h-20 items-center justify-between">
-        
-        <NavHashLink smooth to="/#top" className="inline-flex items-center gap-2.5 group">
-          <span className="font-display text-base font-semibold tracking-tight text-primary flex items-center gap-2">
-            <img src="/logo.png" alt="Logo" className="w-20 object-contain" />
-            <span>Intelligence Économique | <span className="text-accent">ie237</span></span>
+        <NavHashLink smooth to="/#top" className="inline-flex items-center gap-2.5 group min-w-0">
+          <span className="font-display text-base font-semibold tracking-tight text-[20px] flex items-center gap-2 min-w-0">
+            <img src="/logo.png" alt="Logo" className="w-[92px] shrink-0 object-contain" />
+            <span className="font-display font-semibold tracking-tight text-primary text-xs sm:text-[16px] whitespace-nowrap">
+              Intelligence Économique | <span className="text-accent">IE237</span>
+            </span>
           </span>
         </NavHashLink>
 
-        
+        {/* Desktop nav */}
         <nav className="hidden lg:flex items-center gap-10">
           {links.map((l) => (
             <NavHashLink
@@ -33,7 +52,35 @@ export const Navbar = () => {
             </NavHashLink>
           ))}
         </nav>
+
+        {/* Burger mobile */}
+        <button
+          className="lg:hidden p-2 rounded-md hover:bg-secondary transition-all"
+          onClick={() => setOpen(!open)}
+          aria-label="Menu"
+        >
+          <MenuIcon open={open} />
+        </button>
       </div>
+
+      {/* Mobile menu */}
+      {open && (
+        <div className="lg:hidden bg-background border-t border-border">
+          <nav className="container py-6 flex flex-col gap-1">
+            {links.map((l) => (
+              <NavHashLink
+                smooth
+                key={`mobile-nav-${l.href}`}
+                to={l.href}
+                onClick={() => setOpen(false)}
+                className="text-sm text-primary/75 hover:text-accent hover:bg-secondary px-4 py-3 rounded-md transition-all"
+              >
+                {l.label}
+              </NavHashLink>
+            ))}
+          </nav>
+        </div>
+      )}
     </header>
   );
 };
