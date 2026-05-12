@@ -81,6 +81,19 @@ export const Navbar = () => {
           </nav>
         </div>
       )}
+      {/* Drapeau Cameroun Gauche */}
+      <div className="absolute left-0 flex h-[3px] w-32 sm:w-48 md:w-64 lg:w-80 z-10">
+        <div className="flex-1 bg-[#007A5E]" />
+        <div className="flex-1 bg-[#CE1126]" />
+        <div className="flex-1 bg-[#FCD116]" />
+      </div>
+
+      {/* Drapeau Cameroun Droite */}
+      <div className="absolute right-0 flex h-[3px] w-32 sm:w-48 md:w-64 lg:w-80 z-10">
+        <div className="flex-1 bg-[#007A5E]" />
+        <div className="flex-1 bg-[#CE1126]" />
+        <div className="flex-1 bg-[#FCD116]" />
+      </div>
     </header>
   );
 };
