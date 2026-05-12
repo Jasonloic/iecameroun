@@ -56,6 +56,21 @@ const slides = [
   },
 ];
 
+const actualites = [
+  {
+    label: "Journée Africaine de l'Intelligence Économique #JAIE2026 - 29 mai 2026 à l'École Nationale d'Administration et de Magistrature #ENAM",
+    href: "https://acci-cavie.org/jaie/inscription/",
+  },
+  {
+    label: "Participez à la Journée Africaine de l'Intelligence Économique #JAIE2026",
+    href: "https://acci-cavie.org/jaie/inscription/",
+  },
+  {
+    label: "Découvrez le panel de IE237 (Panel 4) à la #JAIE2026",
+    href: "https://acci-cavie.org/jaie/intervenants/",
+  },
+];
+
 export const Hero = () => {
   const [index, setIndex] = useState(0);
 
@@ -165,6 +180,29 @@ export const Hero = () => {
               >
                 <ChevronRight className="h-4 w-4" />
               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Actualités flash */}
+      <div className="absolute bottom-0 inset-x-0 z-10 bg-primary/95 backdrop-blur-sm border-t border-border overflow-hidden">
+        <div className="container flex items-center h-10 gap-4">
+          <span className="shrink-0 text-[10px] uppercase tracking-[0.3em] text-accent font-medium border-r border-border pr-4">
+            Dernière Minute
+          </span>
+          <div className="overflow-hidden flex-1">
+            <div className="flex gap-16 text-[14px] animate-marquee whitespace-nowrap">
+              {[...actualites, ...actualites].map((a, i) => (
+                <a
+                  key={i}
+                  href={a.href}
+                  target={a.href.startsWith("http") ? "_blank" : undefined}
+                  rel="noopener noreferrer"
+                  className="text-[11px] text-primary-foreground/70 hover:text-accent transition-colors shrink-0"
+                >
+                  · {a.label}
+                </a>
+              ))}
             </div>
           </div>
         </div>
