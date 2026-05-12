@@ -186,19 +186,22 @@ export const Hero = () => {
       </div>
       {/* Actualités flash */}
       <div className="absolute bottom-0 inset-x-0 z-10 bg-secondary/95 backdrop-blur-sm border-t border-border overflow-hidden">
-        <div className="container flex items-center h-10 gap-4">
-          <span className="shrink-0 text-[10px] uppercase tracking-[0.3em] text-accent text-primary font-medium border-r border-border pr-4">
-            Cliquez pour vous Inscrire !
+        <div className="flex items-center h-8 sm:h-10 gap-0">
+          <span className="shrink-0 text-[9px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.3em] text-accent font-medium border-r border-border px-3 sm:px-4 h-full flex items-center">
+            #JAIE2026 Inscription :
           </span>
           <div className="overflow-hidden flex-1">
-            <div className="flex gap-16 text-[14px] animate-marquee whitespace-nowrap" style={{ animation: "marquee 8s linear infinite" }}>
+            <div
+              className="flex gap-8 sm:gap-16 whitespace-nowrap"
+              style={{ animation: "marquee 8s linear infinite" }}
+            >
               {[...actualites, ...actualites].map((a, i) => (
                 <a
                   key={i}
                   href={a.href}
                   target={a.href.startsWith("http") ? "_blank" : undefined}
                   rel="noopener noreferrer"
-                  className="text-[11px] text-primary hover:text-accent transition-colors shrink-0"
+                  className="text-[10px] sm:text-[11px] text-primary hover:text-accent transition-colors shrink-0"
                 >
                   · {a.label}
                 </a>
