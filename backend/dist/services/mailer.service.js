@@ -1,36 +1,25 @@
-import { transporter } from '../config/mailer';
-import { env } from '../config/env';
-
-interface MailOptions {
-    to: string | string[];
-    subject: string;
-    html: string;
-}
-
-export const sendMail = async (options: MailOptions): Promise<void> => {
-    await transporter.sendMail({ from: env.mail.from, ...options });
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.sendNewsletter = exports.sendNewsletterConfirmation = exports.sendContactConfirmation = exports.sendMail = void 0;
+const mailer_1 = require("../config/mailer");
+const env_1 = require("../config/env");
+const sendMail = async (options) => {
+    await mailer_1.transporter.sendMail({ from: env_1.env.mail.from, ...options });
 };
-
-export const sendContactConfirmation = async (
-    nom: string,
-    email: string
-): Promise<void> => {
-    await sendMail({
+exports.sendMail = sendMail;
+const sendContactConfirmation = async (nom, email) => {
+    await (0, exports.sendMail)({
         to: email,
         subject: 'Message reçu — Nous vous répondrons bientôt',
         html: `<p>Bonjour <strong>${nom}</strong>,</p>
            <p>Votre message a bien été reçu. Notre équipe vous répondra dans les meilleurs délais.</p>`,
     });
 };
-
-export const sendNewsletterConfirmation = async (
-    email: string,
-    unsubscribeToken: string
-): Promise<void> => {
+exports.sendContactConfirmation = sendContactConfirmation;
+const sendNewsletterConfirmation = async (email, unsubscribeToken) => {
     const baseUrl = process.env.FRONTEND_URL || 'http://localhost:8080';
     const unsubscribeUrl = `${baseUrl}/newsletter/desabonnement?token=${unsubscribeToken}`;
-
-    await sendMail({
+    await (0, exports.sendMail)({
         to: email,
         subject: 'Bienvenue sur IE237 | Veille - Influence - Protection et Intelligence Économique',
         html: `
@@ -53,15 +42,13 @@ export const sendNewsletterConfirmation = async (
         `,
     });
 };
-
-export const sendNewsletter = async (
-    emails: string[],
-    subject: string,
-    content: string
-): Promise<void> => {
+exports.sendNewsletterConfirmation = sendNewsletterConfirmation;
+const sendNewsletter = async (emails, subject, content) => {
     const chunkSize = 50;
     for (let i = 0; i < emails.length; i += chunkSize) {
         const chunk = emails.slice(i, i + chunkSize);
-        await sendMail({ to: chunk, subject, html: content });
+        await (0, exports.sendMail)({ to: chunk, subject, html: content });
     }
 };
+exports.sendNewsletter = sendNewsletter;
+//# sourceMappingURL=mailer.service.js.map

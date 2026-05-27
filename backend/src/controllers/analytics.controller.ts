@@ -75,12 +75,13 @@ export const getVisitesDansLeTemps = async (
 
         const visites = await PageView.findAll({
             attributes: [
-                [fn('DATE', col('created_at')), 'date'],
+                [fn('DATE', col('createdAt')), 'date'],
                 [fn('COUNT', col('id')), 'vues'],
             ],
             where: { createdAt: { [Op.gte]: debut } },
-            group: [literal('DATE(created_at)')],
-            order: [[literal('DATE(created_at)'), 'ASC']],
+
+            group: [literal('DATE(createdAt)') as any],
+            order: [[literal('DATE(createdAt)') as any, 'ASC']],
         });
 
         sendSuccess(res, visites, `Visites sur ${jours} jours`);

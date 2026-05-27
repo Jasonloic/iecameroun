@@ -1,0 +1,24 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PageView = exports.Visitor = exports.Newsletter = exports.Document = exports.Actualite = exports.Admin = exports.sequelize = void 0;
+const database_1 = require("../config/database");
+Object.defineProperty(exports, "sequelize", { enumerable: true, get: function () { return database_1.sequelize; } });
+require("./Admin");
+require("./Actualite");
+require("./Document");
+require("./Newsletter");
+require("./Visitor");
+require("./PageView");
+var Admin_1 = require("./Admin");
+Object.defineProperty(exports, "Admin", { enumerable: true, get: function () { return Admin_1.Admin; } });
+var Actualite_1 = require("./Actualite");
+Object.defineProperty(exports, "Actualite", { enumerable: true, get: function () { return Actualite_1.Actualite; } });
+var Document_1 = require("./Document");
+Object.defineProperty(exports, "Document", { enumerable: true, get: function () { return Document_1.Document; } });
+var Newsletter_1 = require("./Newsletter");
+Object.defineProperty(exports, "Newsletter", { enumerable: true, get: function () { return Newsletter_1.Newsletter; } });
+var Visitor_1 = require("./Visitor");
+Object.defineProperty(exports, "Visitor", { enumerable: true, get: function () { return Visitor_1.Visitor; } });
+var PageView_1 = require("./PageView");
+Object.defineProperty(exports, "PageView", { enumerable: true, get: function () { return PageView_1.PageView; } });
+//# sourceMappingURL=index.js.map
