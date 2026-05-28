@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 35 41% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 30 19% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 30 19% 15%;
+    --primary: 35 41% 47%;
+    --primary-foreground: 53 47% 95%;
+    --secondary: 53 47% 91%;
+    --secondary-foreground: 35 41% 20%;
+    --muted: 53 30% 92%;
+    --muted-foreground: 30 10% 45%;
+    --accent: 30 19% 25%;
+    --accent-foreground: 53 47% 96%;
+    --gold: 35 41% 47%;
+    --gold-foreground: 53 47% 96%;
+    --forest: 145 20% 30%;
+    --crimson: 0 35% 40%;
+    --ink: 30 19% 15%;
+    --ivory: 53 47% 96%;
+    --destructive: 0 50% 45%;
+    --destructive-foreground: 53 47% 96%;
+    --border: 30 15% 82%;
+    --input: 30 15% 82%;
+    --ring: 35 41% 47%;
+    --radius: 0.5rem;
+    --shadow-card: 0 1px 2px hsla(30,19%,15%,0.05), 0 8px 24px -12px hsla(30,19%,15%,0.1);
+    --sidebar-w: 256px;
+  }
+
+  * { @apply border-border; }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .font-display {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .shadow-card-soft { box-shadow: var(--shadow-card); }
+  .transition-smooth { transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+
+  /* Flag accent rule — vert | rouge | or */
+  .flag-rule {
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      hsl(var(--forest)) 0 33.3%,
+      hsl(var(--crimson)) 33.3% 66.6%,
+      hsl(var(--gold)) 66.6% 100%
+    );
+  }
+
+  .editorial-rule {
+    background-image: linear-gradient(90deg, hsl(var(--gold)) 0 32px, transparent 32px);
+    background-repeat: no-repeat;
+    height: 2px;
+  }
+
+  input, textarea, select {
+    font-family: 'Montserrat', system-ui, sans-serif;
+  }
+
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: hsl(var(--secondary)); }
+  ::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 2px; }
+}
