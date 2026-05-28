@@ -12,13 +12,14 @@ import { errorHandler, notFoundHandler } from './middlewares/error.middleware';
 const app = express();
 
 app.use(helmet());
+
 const allowedOrigins = [
     'https://admin.iecameroun.cm',
     'https://iecameroun.cm',
-    'https://www.iecameroun.cm'
+    'https://www.iecameroun.cm',
 ];
 
-app.use(cors({
+const corsOptions: cors.CorsOptions = {
     origin: (origin, callback) => {
         if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
@@ -26,10 +27,15 @@ app.use(cors({
             callback(new Error('Bloqué par la politique CORS de IE237'));
         }
     },
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
-}));
+    credentials: true,
+};
+
+app.use(cors(corsOptions));
+
+// Répondre aux preflight OPTIONS sur toutes les routes
+app.options('*', cors(corsOptions));
 
 app.use(rateLimit({
     windowMs: 15 * 60 * 1000,
