@@ -7,6 +7,8 @@ const links = [
   { label: "Missions", href: "/#missions" },
   { label: "Partenaires", href: "/#partenaires" },
   { label: "Contact", href: "/#contact" },
+  { label: "Bibliotheque", href: "/bibliotheque" },
+  { label: "Infos", href: "/medias" },
 ];
 
 const MenuIcon = ({ open }: { open: boolean }) => (

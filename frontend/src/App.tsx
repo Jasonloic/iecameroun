@@ -7,25 +7,35 @@ import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Medias from "./pages/Medias.tsx";
 import Bibliotheque from "./pages/Bibliotheque.tsx";
+import ArticleDetail from "./pages/ArticleDetail.tsx"; // 1. Import du nouveau composant dynamique
+import { usePageTracking } from "./hooks/usePageTracking";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
+function AppRoutes() {
+    usePageTracking();
+
+    return (
         <Routes>
-          <Route path="/" element={<Index />} />
-        <Route path="/medias" element={<Medias />} />
-        <Route path="/bibliotheque" element={<Bibliotheque />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
+            <Route path="/"             element={<Index />} />
+            <Route path="/medias"       element={<Medias />} />
+            <Route path="/medias/:id"   element={<ArticleDetail />} />
+            <Route path="/bibliotheque" element={<Bibliotheque />} />
+            <Route path="*"             element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+    );
+}
+
+const App = () => (
+    <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+                <AppRoutes />
+            </BrowserRouter>
+        </TooltipProvider>
+    </QueryClientProvider>
 );
 
 export default App;
