@@ -13,7 +13,7 @@ const app = express();
 
 app.use(helmet());
 const allowedOrigins = [
-    'http://localhost:8080',
+    'https://admin.iecameroun.cm',
     'https://iecameroun.cm',
     'https://www.iecameroun.cm'
 ];
