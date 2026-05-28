@@ -1,5 +1,4 @@
 import express from 'express';
-import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import path from 'path';
@@ -11,31 +10,29 @@ import { errorHandler, notFoundHandler } from './middlewares/error.middleware';
 
 const app = express();
 
-app.use(helmet());
-
-const allowedOrigins = [
+const ALLOWED_ORIGINS = [
     'https://admin.iecameroun.cm',
     'https://iecameroun.cm',
     'https://www.iecameroun.cm',
 ];
 
-const corsOptions: cors.CorsOptions = {
-    origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('Bloqué par la politique CORS de IE237'));
-        }
-    },
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
-};
+app.use((req, res, next) => {
+    const origin = req.headers.origin;
+    if (origin && ALLOWED_ORIGINS.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
 
-app.use(cors(corsOptions));
+    if (req.method === 'OPTIONS') {
+        res.sendStatus(204);
+        return;
+    }
+    next();
+});
 
-// Répondre aux preflight OPTIONS sur toutes les routes
-app.options('*', cors(corsOptions));
+app.use(helmet());
 
 app.use(rateLimit({
     windowMs: 15 * 60 * 1000,
