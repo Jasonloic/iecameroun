@@ -10,6 +10,8 @@ import { errorHandler, notFoundHandler } from './middlewares/error.middleware';
 
 const app = express();
 
+app.set('trust proxy', 1);
+
 const ALLOWED_ORIGINS = [
     'https://admin.iecameroun.cm',
     'https://iecameroun.cm',
@@ -33,9 +35,11 @@ app.use((req, res, next) => {
 });
 
 app.use(helmet());
+app.use(express.json({ limit: '2mb' }));
+app.use(express.urlencoded({ extended: true }));
 
 app.use(rateLimit({
-    windowMs: 15 * 60 * 1000,
+    windowMs: 15 * 60 * 1000, // 15 minutes
     max: 200,
     standardHeaders: true,
     legacyHeaders: false,
@@ -44,15 +48,10 @@ app.use(rateLimit({
 const strictLimiter = rateLimit({ windowMs: 60 * 1000, max: 10 });
 app.use('/api/newsletter/subscribe', strictLimiter);
 
-app.use(express.json({ limit: '2mb' }));
-app.use(express.urlencoded({ extended: true }));
-
 app.use('/api/uploads', express.static(path.join(process.cwd(), 'uploads')));
-
 app.use(trackerMiddleware);
 
 app.get('/health', (_req, res) => res.json({ status: 'ok', ts: new Date() }));
-
 app.use('/api', routes);
 
 app.use(notFoundHandler);
