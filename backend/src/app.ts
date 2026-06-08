@@ -10,7 +10,9 @@ import { errorHandler, notFoundHandler } from './middlewares/error.middleware';
 
 const app = express();
 
+
 app.set('trust proxy', 1);
+
 
 const ALLOWED_ORIGINS = [
     'https://admin.iecameroun.cm',
@@ -20,13 +22,17 @@ const ALLOWED_ORIGINS = [
 
 app.use((req, res, next) => {
     const origin = req.headers.origin;
+    
+    
     if (origin && ALLOWED_ORIGINS.includes(origin)) {
         res.setHeader('Access-Control-Allow-Origin', origin);
     }
+    
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
 
+   
     if (req.method === 'OPTIONS') {
         res.sendStatus(204);
         return;
@@ -34,13 +40,18 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(helmet());
+app.use(helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+    crossOriginOpenerPolicy: { policy: "unsafe-none" }
+}));
+
+
 app.use(express.json({ limit: '2mb' }));
 app.use(express.urlencoded({ extended: true }));
 
 app.use(rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 200,
+    windowMs: 15 * 60 * 1000, 
+    max: 200,                
     standardHeaders: true,
     legacyHeaders: false,
 }));
