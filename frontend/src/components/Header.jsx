@@ -175,7 +175,7 @@ const Header = ({ className = "" }) => {
       <img
         className="lg:absolute sm:relative right-0 my-10 lg:top-16 lg:w-120 max-w-[1325px] z-0 h-auto object-contain mx-auto block px-6"
         alt=""
-        src="/Image.png"
+        src="/IMG_8252.webp"
       />
     </header>
   );
